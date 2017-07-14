@@ -1,0 +1,28 @@
+<div class="container" ng-controller="mainController">
+    <!-- Workout LIST -->
+    <div id="todo-list" class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            <!-- LOOP OVER THE TODOS IN $scope.todos -->
+            <div ng-repeat="workout in workouts">
+                <label>{{ workout.name }}</label>
+            </div>
+            <p class="text-center" ng-show="loading">
+                <span class="fa fa-spinner fa-spin fa-3x"></span>
+            </p>
+
+        </div>
+    </div>
+
+    <div id="todo-form" class="row">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control input-lg text-center" placeholder="Name" ng-model="workoutData.name">
+                    <input type="text" class="form-control input-md text-center" placeholder="Date" ng-model="workoutData.date">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg" ng-click="createWorkout()">Add</button>
+            </form>
+        </div>
+    </div>
+
+</div>
