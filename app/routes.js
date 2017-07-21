@@ -25,44 +25,6 @@ function getWorkouts(res) {
 
 module.exports = function (app) {
 
-    // api ---------------------------------------------------------------------
-    // get all todos
-    app.get('/api/todos', function (req, res) {
-        // use mongoose to get all todos in the database
-        getTodos(res);
-    });
-
-    // create todo and send back all todos after creation
-    app.post('/api/todos', function (req, res) {
-
-        // create a todo, information comes from AJAX request from Angular
-        Todo.create({
-            text: req.body.text,
-            user: req.body.user,
-            exercises: req.body.exercises,
-            done: false
-        }, function (err, todo) {
-            if (err)
-                res.send(err);
-
-            // get and return all the todos after you create another
-            getTodos(res);
-        });
-
-    });
-
-    // delete a todo
-    app.delete('/api/todos/:todo_id', function (req, res) {
-        Todo.remove({
-            _id: req.params.todo_id
-        }, function (err, todo) {
-            if (err)
-                res.send(err);
-
-            getTodos(res);
-        });
-    });
-
     // CONALL
     // api ---------------------------------------------------------------------
         // get all todos
@@ -73,12 +35,29 @@ module.exports = function (app) {
 
         // create todo and send back all todos after creation
         app.post('/api/workouts', function (req, res) {
+            console.log("Saving workout");
+            //console.log(req.body.exercises);
+            //console.log(req.body.exercises[0]);
+            console.log(req.body.exercises[0].sets);
+            console.log(req.body.exercises[0].sets[0].setID);
 
             // create a todo, information comes from AJAX request from Angular
             Workout.create({
                 name: req.body.name,
                 exercises: req.body.exercises,
                 //user: req.body.user,
+
+                exercise1: {
+                    name: req.body.exercises[0].name, 
+                    sets: 
+                        {
+                            setID: req.body.exercises[0].sets[0].setID, 
+                            reps: req.body.exercises[0].sets[0].reps, 
+                            sets: req.body.exercises[0].sets[0].sets, 
+                            weight: req.body.exercises[0].sets[0].weight
+                        }
+                    },
+
                 done: false
             }, function (err, workout) {
                 if (err)
