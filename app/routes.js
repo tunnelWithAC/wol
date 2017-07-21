@@ -39,6 +39,7 @@ module.exports = function (app) {
         Todo.create({
             text: req.body.text,
             user: req.body.user,
+            exercises: req.body.exercises,
             done: false
         }, function (err, todo) {
             if (err)
@@ -76,6 +77,7 @@ module.exports = function (app) {
             // create a todo, information comes from AJAX request from Angular
             Workout.create({
                 name: req.body.name,
+                exercises: req.body.exercises,
                 //user: req.body.user,
                 done: false
             }, function (err, workout) {
