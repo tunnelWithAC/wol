@@ -28,7 +28,7 @@
             <!-- LOOP OVER THE TODOS IN $scope.todos -->
             <div ng-repeat="workout in workouts | limitTo : -5">
                 <label>{{ workout.name }}</label>
-                <label>{{ workout.exercise1 }}</label>
+                
             </div>
             <p class="text-center" ng-show="loading">
                 <span class="fa fa-spinner fa-spin fa-3x"></span>

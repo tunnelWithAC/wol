@@ -39,24 +39,97 @@ module.exports = function (app) {
             //console.log(req.body.exercises);
             //console.log(req.body.exercises[0]);
             console.log(req.body.exercises[0].sets);
-            console.log(req.body.exercises[0].sets[0].setID);
+            var firstSet = req.body.exercises[0].sets[0] || null;
+            var secondSet = req.body.exercises[0].sets[1];
+            var secondExercise = req.body.exercises[1];
+            var thirdSet = req.body.exercises[2];
+            var emptySet = null/*[{setID: null, reps: null, sets: null, weight:null}]*/;
 
-            // create a todo, information comes from AJAX request from Angular
+            if(secondSet === null || secondSet === undefined){
+                secondSet = emptySet
+            }
+            console.log(secondSet);
+     
+            // create a workout object, information comes from AJAX request from Angular
             Workout.create({
                 name: req.body.name,
                 exercises: req.body.exercises,
-                //user: req.body.user,
 
                 exercise1: {
                     name: req.body.exercises[0].name, 
                     sets: 
                         {
-                            setID: req.body.exercises[0].sets[0].setID, 
-                            reps: req.body.exercises[0].sets[0].reps, 
-                            sets: req.body.exercises[0].sets[0].sets, 
-                            weight: req.body.exercises[0].sets[0].weight
+                            set1: {
+                                setID: firstSet.setID, 
+                                reps: req.body.exercises[0].sets[0].reps, 
+                                sets: req.body.exercises[0].sets[0].sets, 
+                                weight: req.body.exercises[0].sets[0].weight    
+                            },    
+                            set2: {
+                                setID: secondSet.setID, 
+                                reps: secondSet.reps, 
+                                sets: secondSet.sets, 
+                                weight: secondSet.weight
+                            }
+                            /*,
+                            set3: {
+                                setID: req.body.exercises[0].sets[2].setID || null, 
+                                reps: req.body.exercises[0].sets[2].reps || null, 
+                                sets: req.body.exercises[0].sets[2].sets || null, 
+                                weight: req.body.exercises[0].sets[2].weight || null
+                            }
+                            /*,
+                            set4: {
+                                setID: req.body.exercises[0].sets[3].setID || null, 
+                                reps: req.body.exercises[0].sets[3].reps || null, 
+                                sets: req.body.exercises[0].sets[3].sets || null, 
+                                weight: req.body.exercises[0].sets[3].weight || null   
+                            },
+                            set5: {
+                                setID: req.body.exercises[0].sets[4].setID || null, 
+                                reps: req.body.exercises[0].sets[4].reps || null, 
+                                sets: req.body.exercises[0].sets[4].sets || null, 
+                                weight: req.body.exercises[0].sets[4].weight || null    
+                            }*/
                         }
                     },
+                    /*exercise2: {
+                    name: req.body.exercises[1].name, 
+                    sets: 
+                        {
+                            set1: {
+                                setID: req.body.exercises[1].sets[0].setID || null, 
+                                reps: req.body.exercises[1].sets[0].reps || null, 
+                                sets: req.body.exercises[1].sets[0].sets || null, 
+                                weight: req.body.exercises[1].sets[0].weight || null    
+                            },
+                            set2: {
+                                setID: req.body.exercises[1].sets[1].setID || null, 
+                                reps: req.body.exercises[1].sets[1].reps || null,  
+                                sets: req.body.exercises[1].sets[1].sets || null, 
+                                weight: req.body.exercises[1].sets[1].weight || null   
+                            },
+
+                            set3: {
+                                setID: req.body.exercises[1].sets[2].setID || null, 
+                                reps: req.body.exercises[1].sets[2].reps || null, 
+                                sets: req.body.exercises[1].sets[2].sets || null, 
+                                weight: req.body.exercises[1].sets[2].weight || null    
+                            }/*,
+                            set4: {
+                                setID: req.body.exercises[1].sets[3].setID || null, 
+                                reps: req.body.exercises[1].sets[3].reps || null, 
+                                sets: req.body.exercises[1].sets[3].sets || null, 
+                                weight: req.body.exercises[1].sets[3].weight || null    
+                            },
+                            set5: {
+                                setID: req.body.exercises[1].sets[4].setID || null,  
+                                reps: req.body.exercises[1].sets[4].reps || null, 
+                                sets: req.body.exercises[1].sets[4].sets || null, 
+                                weight: req.body.exercises[1].sets[4].weight || null   
+                            }
+                        }
+                    },*/
 
                 done: false
             }, function (err, workout) {
