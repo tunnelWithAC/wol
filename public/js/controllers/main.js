@@ -1,4 +1,4 @@
-app.controller('mainController', ['$scope','$http','Todos','Workouts', function($scope, $http, Todos, Workouts) {
+app.controller('mainController', ['$scope','$http','Workouts', function($scope, $http, Workouts) {
     $scope.formData = {};
     $scope.workoutData = {};
     $scope.loading = true;
@@ -7,12 +7,18 @@ app.controller('mainController', ['$scope','$http','Todos','Workouts', function(
     $scope.sets = [];
     $scope.workoutData.exercises = $scope.exercises;
 
+    $scope.clearForm = function(){
+        $scope.workoutData = {};
+        $scope.exercises = [{'exerciseID':0, "sets":[{"setID":0}]}];
+        $scope.sets = [];
+        $scope.workoutData.exercises = $scope.exercises;
+    };
+
     $scope.addNewExercise = function(){
         if($scope.exercises.length < 3){
             var newID = $scope.exercises.length;
             $scope.exercises.push({'exerciseID':newID, 'sets':[{"setID":0}] });
         }
-        
     };
 
     $scope.calculateTotalVolume = function(){
@@ -29,21 +35,25 @@ app.controller('mainController', ['$scope','$http','Todos','Workouts', function(
                 totalV += (currentSet.weight * currentSet.reps * currentSet.sets);
             }
             $scope.exercises[i].exerciseVolume = exerciseVolume;
-            console.log(totalV);
         }
+        $scope.workoutData.totalVolume = totalV;
     }; 
 
     $scope.addNewSet = function(excID) {
         // exercises[id].sets.push(param)
         if($scope.exercises[excID].sets.length < 5 ){
-            var newItemNo = $scope.exercises[excID].sets.length+1;
+            var newItemNo = $scope.exercises[excID].sets.length;
             $scope.exercises[excID].sets.push({'setID':newItemNo});
         }
     };
 
+    $scope.removeSet = function(excID, setID) {
+        $scope.exercises[excID].sets.pop();
+    };
+
     $scope.createWorkout = function() {
         $scope.calculateTotalVolume();
-        /*if ($scope.workoutData.name != undefined) {
+        if ($scope.workoutData.name != undefined) {
             $scope.loading = true;
             Workouts.create($scope.workoutData)
                 .then(function(response) {
@@ -51,7 +61,8 @@ app.controller('mainController', ['$scope','$http','Todos','Workouts', function(
                     $scope.formData = {};
                     $scope.workouts = response.data;
                 });
-        }*/
+        }
+        $scope.clearForm();
     };
 
     Workouts.get()
