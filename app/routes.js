@@ -38,98 +38,87 @@ module.exports = function (app) {
             console.log("Saving workout");
             //console.log(req.body.exercises);
             //console.log(req.body.exercises[0]);
-            console.log(req.body.exercises[0].sets);
+            //console.log(req.body.exercises[0].sets);
             var firstSet = req.body.exercises[0].sets[0] || null;
             var secondSet = req.body.exercises[0].sets[1];
             var secondExercise = req.body.exercises[1];
             var thirdSet = req.body.exercises[2];
             var emptySet = null/*[{setID: null, reps: null, sets: null, weight:null}]*/;
-
+            var nullSet = {setID: null, reps: null, sets: null, weight:null};
+            var sampleSet = {setID: 1, reps: 3, sets: 4, weight: 75}
             if(secondSet === null || secondSet === undefined){
                 secondSet = emptySet
             }
-            console.log(secondSet);
-     
+
+            var exc1set1, exc1set2, exc1set3, exc1set4, exc1set5;
+            var exc2Name, exc2set1, exc2set2, exc2set3, exc2set4, exc2set5;
+            var exc3Name, exc3set1, exc3set2, exc3set3, exc3set4, exc3set5;
+
+            if(req.body.exercises[0] !== undefined && req.body.exercises[0] !== null){
+                exc1Name = req.body.exercises[0].name;
+                exc1Set1 = req.body.exercises[0].sets[0] || null;
+                exc1Set2 = req.body.exercises[0].sets[1] || null;
+                exc1Set3 = req.body.exercises[0].sets[2] || null;
+                exc1Set4 = req.body.exercises[0].sets[3] || null;
+                exc1Set5 = req.body.exercises[0].sets[4] || null;    
+            }
+
+            if(req.body.exercises[1] !== undefined && req.body.exercises[1] !== null){
+                exc2Name = req.body.exercises[1].name;
+                exc2set1 = req.body.exercises[1].sets[0] || null;
+                exc2set2 = req.body.exercises[1].sets[1] || null;
+                exc2set3 = req.body.exercises[1].sets[2] || null;
+                exc2set4 = req.body.exercises[1].sets[3] || null;
+                exc2set5 = req.body.exercises[1].sets[4] || null;    
+            }
+
+            if(req.body.exercises[2] !== undefined && req.body.exercises[2] !== null){
+                exc3Name = req.body.exercises[2].name;
+                exc3set1 = req.body.exercises[2].sets[0] || null;
+                exc3set2 = req.body.exercises[2].sets[1] || null;
+                exc3set3 = req.body.exercises[2].sets[2] || null;
+                exc3set4 = req.body.exercises[2].sets[3] || null;
+                exc3set5 = req.body.exercises[2].sets[4] || null;    
+            }
+            
+           
             // create a workout object, information comes from AJAX request from Angular
             Workout.create({
                 name: req.body.name,
                 exercises: req.body.exercises,
-
                 exercise1: {
-                    name: req.body.exercises[0].name, 
+                    name: exc1Name, 
                     sets: 
                         {
-                            set1: {
-                                setID: firstSet.setID, 
-                                reps: req.body.exercises[0].sets[0].reps, 
-                                sets: req.body.exercises[0].sets[0].sets, 
-                                weight: req.body.exercises[0].sets[0].weight    
-                            },    
-                            set2: {
-                                setID: secondSet.setID, 
-                                reps: secondSet.reps, 
-                                sets: secondSet.sets, 
-                                weight: secondSet.weight
-                            }
-                            /*,
-                            set3: {
-                                setID: req.body.exercises[0].sets[2].setID || null, 
-                                reps: req.body.exercises[0].sets[2].reps || null, 
-                                sets: req.body.exercises[0].sets[2].sets || null, 
-                                weight: req.body.exercises[0].sets[2].weight || null
-                            }
-                            /*,
-                            set4: {
-                                setID: req.body.exercises[0].sets[3].setID || null, 
-                                reps: req.body.exercises[0].sets[3].reps || null, 
-                                sets: req.body.exercises[0].sets[3].sets || null, 
-                                weight: req.body.exercises[0].sets[3].weight || null   
-                            },
-                            set5: {
-                                setID: req.body.exercises[0].sets[4].setID || null, 
-                                reps: req.body.exercises[0].sets[4].reps || null, 
-                                sets: req.body.exercises[0].sets[4].sets || null, 
-                                weight: req.body.exercises[0].sets[4].weight || null    
-                            }*/
+                            set1: exc1Set1,    
+                            set2: exc1Set2,
+                            set3: exc1Set3,
+                            set4: exc1Set4,
+                            set5: exc1Set5
                         }
                     },
-                    /*exercise2: {
-                    name: req.body.exercises[1].name, 
+                    exercise2: {
+                    name: exc2Name, 
                     sets: 
                         {
-                            set1: {
-                                setID: req.body.exercises[1].sets[0].setID || null, 
-                                reps: req.body.exercises[1].sets[0].reps || null, 
-                                sets: req.body.exercises[1].sets[0].sets || null, 
-                                weight: req.body.exercises[1].sets[0].weight || null    
-                            },
-                            set2: {
-                                setID: req.body.exercises[1].sets[1].setID || null, 
-                                reps: req.body.exercises[1].sets[1].reps || null,  
-                                sets: req.body.exercises[1].sets[1].sets || null, 
-                                weight: req.body.exercises[1].sets[1].weight || null   
-                            },
-
-                            set3: {
-                                setID: req.body.exercises[1].sets[2].setID || null, 
-                                reps: req.body.exercises[1].sets[2].reps || null, 
-                                sets: req.body.exercises[1].sets[2].sets || null, 
-                                weight: req.body.exercises[1].sets[2].weight || null    
-                            }/*,
-                            set4: {
-                                setID: req.body.exercises[1].sets[3].setID || null, 
-                                reps: req.body.exercises[1].sets[3].reps || null, 
-                                sets: req.body.exercises[1].sets[3].sets || null, 
-                                weight: req.body.exercises[1].sets[3].weight || null    
-                            },
-                            set5: {
-                                setID: req.body.exercises[1].sets[4].setID || null,  
-                                reps: req.body.exercises[1].sets[4].reps || null, 
-                                sets: req.body.exercises[1].sets[4].sets || null, 
-                                weight: req.body.exercises[1].sets[4].weight || null   
-                            }
+                            set1: exc2set1,
+                            set2: exc2set2,
+                            set3: exc2set3,
+                            set4: exc2set4,
+                            set5: exc2set5
                         }
-                    },*/
+                    },
+                    exercise3: {
+                    name: exc3Name, 
+                    sets: 
+                        {
+                            set1: exc3set1,
+                            set2: exc3set2,
+                            set3: exc3set3,
+                            set4: exc3set4,
+                            set5: exc3set5
+                        }
+                    },
 
                 done: false
             }, function (err, workout) {
@@ -143,7 +132,7 @@ module.exports = function (app) {
         });
 
         app.delete('/api/workout/:workout_id', function (req, res) {
-            Todo.remove({
+            Workout.remove({
                 _id: req.params.workout_id
             }, function (err, workout) {
                 if (err)
