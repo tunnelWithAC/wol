@@ -27,5 +27,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('home', {
             url: '/home',
             templateUrl: 'templates/home.html'
+        })
+        .state('home.workout', {
+            url: '/workout',
+            templateUrl: 'templates/workout.html'
+        })
+        .state('home.create', {
+            url: '/create',
+            templateUrl: 'templates/create.html'
         });
 });

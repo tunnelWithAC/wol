@@ -18,7 +18,8 @@ var set = new mongoose.Schema({
 
 var exercise = new mongoose.Schema({
   name: String,
-  sets: set
+  sets: set,
+  exerciseVolume: { type: Number, default: 0 }
 });
 
 
@@ -31,6 +32,9 @@ module.exports = mongoose.model('Workout', {
     date: { type: Date, default: Date.now },
     exercise1: exercise,
     exercise2: exercise,
-    exercise3: exercise
+    exercise3: exercise,
+    exercise4: exercise,
+    exercise5: exercise,
+    workoutVolume: { type: Number, default: 0 }
 
 });

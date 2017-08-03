@@ -19,7 +19,7 @@ function getWorkouts(res) {
         if (err) {
             res.send(err);
         }
-        res.json(workouts); // return all todos in JSON format
+        res.json(workouts); // return all workouts in JSON format
     });
 };
 
@@ -39,20 +39,22 @@ module.exports = function (app) {
             //console.log(req.body.exercises);
             //console.log(req.body.exercises[0]);
             //console.log(req.body.exercises[0].sets);
-            var firstSet = req.body.exercises[0].sets[0] || null;
+           /* var firstSet = req.body.exercises[0].sets[0] || null;
             var secondSet = req.body.exercises[0].sets[1];
             var secondExercise = req.body.exercises[1];
             var thirdSet = req.body.exercises[2];
-            var emptySet = null/*[{setID: null, reps: null, sets: null, weight:null}]*/;
+            var emptySet = null/*[{setID: null, reps: null, sets: null, weight:null}]/;
             var nullSet = {setID: null, reps: null, sets: null, weight:null};
             var sampleSet = {setID: 1, reps: 3, sets: 4, weight: 75}
             if(secondSet === null || secondSet === undefined){
                 secondSet = emptySet
-            }
+            }*/
 
             var exc1set1, exc1set2, exc1set3, exc1set4, exc1set5;
             var exc2Name, exc2set1, exc2set2, exc2set3, exc2set4, exc2set5;
             var exc3Name, exc3set1, exc3set2, exc3set3, exc3set4, exc3set5;
+            var exc4Name, exc4set1, exc4set2, exc4set3, exc4set4, exc4set5;
+            var exc5Name, exc5set1, exc5set2, exc5set3, exc5set4, exc5set5;
 
             if(req.body.exercises[0] !== undefined && req.body.exercises[0] !== null){
                 exc1Name = req.body.exercises[0].name;
@@ -79,6 +81,24 @@ module.exports = function (app) {
                 exc3set3 = req.body.exercises[2].sets[2] || null;
                 exc3set4 = req.body.exercises[2].sets[3] || null;
                 exc3set5 = req.body.exercises[2].sets[4] || null;    
+            }
+
+            if(req.body.exercises[3] !== undefined && req.body.exercises[3] !== null){
+                exc4Name = req.body.exercises[3].name;
+                exc4set1 = req.body.exercises[3].sets[0] || null;
+                exc4set2 = req.body.exercises[3].sets[1] || null;
+                exc4set3 = req.body.exercises[3].sets[2] || null;
+                exc4set4 = req.body.exercises[3].sets[3] || null;
+                exc4set5 = req.body.exercises[3].sets[4] || null;    
+            }
+
+            if(req.body.exercises[4] !== undefined && req.body.exercises[4] !== null){
+                exc5Name = req.body.exercises[4].name;
+                exc5set1 = req.body.exercises[4].sets[0] || null;
+                exc5set2 = req.body.exercises[4].sets[1] || null;
+                exc5set3 = req.body.exercises[4].sets[2] || null;
+                exc5set4 = req.body.exercises[4].sets[3] || null;
+                exc5set5 = req.body.exercises[4].sets[4] || null;    
             }
             
            
