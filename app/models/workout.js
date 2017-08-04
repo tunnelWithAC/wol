@@ -19,8 +19,16 @@ var set = new mongoose.Schema({
 var exercise = new mongoose.Schema({
   name: String,
   sets: set,
-  exerciseVolume: { type: Number, default: 0 }
+  exerciseVolume: Number
 });
+
+var exercises = new mongoose.Schema({
+  exercise1: exercise,
+  exercise2: exercise,
+  exercise3: exercise,
+  exercise4: exercise,
+  exercise5: exercise
+})
 
 
 module.exports = mongoose.model('Workout', {
@@ -30,11 +38,12 @@ module.exports = mongoose.model('Workout', {
         default: ''
     },
     date: { type: Date, default: Date.now },
-    exercise1: exercise,
+    exercises: exercises,
+    /*exercise1: exercise,
     exercise2: exercise,
     exercise3: exercise,
     exercise4: exercise,
-    exercise5: exercise,
+    exercise5: exercise,*/
     workoutVolume: { type: Number, default: 0 }
 
 });

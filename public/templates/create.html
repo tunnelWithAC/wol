@@ -1,0 +1,41 @@
+<div class="row">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+            <form>
+                <div class="form-group">
+                    <input type="text" placeholder="Name (required)" ng-model="workoutData.name">
+                    <input type="text" placeholder="Date (Default:now)" ng-model="workoutData.date">
+                </div>
+                
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Workout LIST -->
+    <div class="row">
+        <div class="col-sm-12" ng-model="workoutData.exercises">
+            <button class="addfields btn btn-default btn-sm" ng-click="addNewExercise()">Add Exercise</button>
+            <br>
+            <br>
+            <div data-ng-repeat="exercise in exercises">
+                <fieldset >
+                    <input type="text" ng-model="exercise.name" name="" placeholder="Enter exercise name">
+                    <div style="margin-left: 40px" data-ng-repeat="set in exercise.sets">
+                        <input type="number" ng-model="set.weight" name="" placeholder="Enter weight">
+                        <input type="number" ng-model="set.reps" name="" placeholder="Enter reps">
+                        <input type="number" ng-model="set.sets" name="" placeholder="Enter sets">
+                         <button class="addfields btn btn-default btn-sm" ng-show="$last" ng-click="addNewSet(exercise.exerciseID)">+</button>
+                        <button class="addfields btn btn-default btn-sm" ng-show="$last" ng-click="removeSet(exercise.exerciseID, set.setID)">-</button>
+                    </div>
+                    <!-- <div ng-if="exercises[exercise.exerciseID].sets.length< 1"><p></p></div>
+                    <br>
+                    <button class="addfields btn btn-default btn-sm" ng-click="addNewSet(exercise.exerciseID)">Add set</button> -->
+                </fieldset>
+                <br>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary" ng-click="createWorkout()">Save</button>
+    <br>
+    <br>
+    {{workoutData}}

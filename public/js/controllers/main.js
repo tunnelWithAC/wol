@@ -25,6 +25,7 @@ app.controller('mainController', ['$scope','$http','Workouts', function($scope, 
        var totalV = 0;
        // loop through each exercise
        for(i=0;i<$scope.exercises.length;i++) { 
+            console.log("Calculating volume for set: " + (i + 1));
             var exerciseVolume = 0;
             var currentSetArray = $scope.exercises[i].sets; 
 
@@ -35,6 +36,7 @@ app.controller('mainController', ['$scope','$http','Workouts', function($scope, 
                 totalV += (currentSet.weight * currentSet.reps * currentSet.sets);
             }
             $scope.exercises[i].exerciseVolume = exerciseVolume;
+            console.log("Set volume: " + exerciseVolume);
         }
         $scope.workoutData.totalVolume = totalV;
     }; 
@@ -62,7 +64,7 @@ app.controller('mainController', ['$scope','$http','Workouts', function($scope, 
                     $scope.workouts = response.data;
                 });
         }
-        $scope.clearForm();
+        //$scope.clearForm();
     };
 
     Workouts.get()

@@ -50,14 +50,18 @@ module.exports = function (app) {
                 secondSet = emptySet
             }*/
 
-            var exc1set1, exc1set2, exc1set3, exc1set4, exc1set5;
-            var exc2Name, exc2set1, exc2set2, exc2set3, exc2set4, exc2set5;
-            var exc3Name, exc3set1, exc3set2, exc3set3, exc3set4, exc3set5;
-            var exc4Name, exc4set1, exc4set2, exc4set3, exc4set4, exc4set5;
-            var exc5Name, exc5set1, exc5set2, exc5set3, exc5set4, exc5set5;
+            var exc1set1, exc1Volume, exc1set2, exc1set3, exc1set4, exc1set5;
+            var exc2Name, exc2Volume, exc2set1, exc2set2, exc2set3, exc2set4, exc2set5;
+            var exc3Name, exc3Volume, exc3set1, exc3set2, exc3set3, exc3set4, exc3set5;
+            var exc4Name, exc4Volume, exc4set1, exc4set2, exc4set3, exc4set4, exc4set5;
+            var exc5Name, exc5Volume, exc5set1, exc5set2, exc5set3, exc5set4, exc5set5;
+
+            console.log(req.body.exercises);
+            console.log(req.body.exercises[0].sets[0].weight);
 
             if(req.body.exercises[0] !== undefined && req.body.exercises[0] !== null){
                 exc1Name = req.body.exercises[0].name;
+                exc1Volume = req.body.exercises[0].exerciseVolume || null;
                 exc1Set1 = req.body.exercises[0].sets[0] || null;
                 exc1Set2 = req.body.exercises[0].sets[1] || null;
                 exc1Set3 = req.body.exercises[0].sets[2] || null;
@@ -67,6 +71,7 @@ module.exports = function (app) {
 
             if(req.body.exercises[1] !== undefined && req.body.exercises[1] !== null){
                 exc2Name = req.body.exercises[1].name;
+                exc2Volume = req.body.exercises[1].exerciseVolume || null;
                 exc2set1 = req.body.exercises[1].sets[0] || null;
                 exc2set2 = req.body.exercises[1].sets[1] || null;
                 exc2set3 = req.body.exercises[1].sets[2] || null;
@@ -76,6 +81,7 @@ module.exports = function (app) {
 
             if(req.body.exercises[2] !== undefined && req.body.exercises[2] !== null){
                 exc3Name = req.body.exercises[2].name;
+                exc3Volume = req.body.exercises[2].exerciseVolume || null;
                 exc3set1 = req.body.exercises[2].sets[0] || null;
                 exc3set2 = req.body.exercises[2].sets[1] || null;
                 exc3set3 = req.body.exercises[2].sets[2] || null;
@@ -85,6 +91,7 @@ module.exports = function (app) {
 
             if(req.body.exercises[3] !== undefined && req.body.exercises[3] !== null){
                 exc4Name = req.body.exercises[3].name;
+                exc4Volume = req.body.exercises[3].exerciseVolume || null;
                 exc4set1 = req.body.exercises[3].sets[0] || null;
                 exc4set2 = req.body.exercises[3].sets[1] || null;
                 exc4set3 = req.body.exercises[3].sets[2] || null;
@@ -94,6 +101,7 @@ module.exports = function (app) {
 
             if(req.body.exercises[4] !== undefined && req.body.exercises[4] !== null){
                 exc5Name = req.body.exercises[4].name;
+                exc5Volume = req.body.exercises[4].exerciseVolume || null;
                 exc5set1 = req.body.exercises[4].sets[0] || null;
                 exc5set2 = req.body.exercises[4].sets[1] || null;
                 exc5set3 = req.body.exercises[4].sets[2] || null;
@@ -101,13 +109,17 @@ module.exports = function (app) {
                 exc5set5 = req.body.exercises[4].sets[4] || null;    
             }
             
-           
+           console.log(exc1Set1);
+           console.log(exc1Set1.weight);
             // create a workout object, information comes from AJAX request from Angular
             Workout.create({
                 name: req.body.name,
-                exercises: req.body.exercises,
-                exercise1: {
+                //exercises: req.body.exercises,
+                workoutVolume: req.body.totalVolume,
+                exercises: {
+                    exercise1: {
                     name: exc1Name, 
+                    exerciseVolume: exc1Volume,
                     sets: 
                         {
                             set1: exc1Set1,    
@@ -118,27 +130,30 @@ module.exports = function (app) {
                         }
                     },
                     exercise2: {
-                    name: exc2Name, 
-                    sets: 
-                        {
-                            set1: exc2set1,
-                            set2: exc2set2,
-                            set3: exc2set3,
-                            set4: exc2set4,
-                            set5: exc2set5
-                        }
-                    },
+                        name: exc2Name, 
+                        exerciseVolume: exc2Volume,
+                        sets: 
+                            {
+                                set1: exc2set1,
+                                set2: exc2set2,
+                                set3: exc2set3,
+                                set4: exc2set4,
+                                set5: exc2set5
+                            }
+                        },
                     exercise3: {
-                    name: exc3Name, 
-                    sets: 
-                        {
-                            set1: exc3set1,
-                            set2: exc3set2,
-                            set3: exc3set3,
-                            set4: exc3set4,
-                            set5: exc3set5
+                        name: exc3Name, 
+                        exerciseVolume: exc3Volume,
+                        sets: 
+                            {
+                                set1: exc3set1,
+                                set2: exc3set2,
+                                set3: exc3set3,
+                                set4: exc3set4,
+                                set5: exc3set5
+                            }
                         }
-                    },
+                },
 
                 done: false
             }, function (err, workout) {
@@ -148,7 +163,7 @@ module.exports = function (app) {
                 // get and return all the todos after you create another
                 getWorkouts(res);
             });
-
+             //getWorkouts(res);
         });
 
         app.delete('/api/workout/:workout_id', function (req, res) {
