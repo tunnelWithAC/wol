@@ -1,6 +1,6 @@
 var Todo = require('./models/todo');
 var Workout = require('./models/workout');
-
+var User = require('./models/user');
 
 function getTodos(res) {
     Todo.find(function (err, todos) {
@@ -23,10 +23,29 @@ function getWorkouts(res) {
     });
 };
 
+function getNames(res) {
+    Workout.find(function (err, names) {
+        if (err) {
+            res.send(err);
+        }
+        res.json(names); // return all workouts in JSON format
+    });
+};
+
 module.exports = function (app) {
 
     // CONALL
     // api ---------------------------------------------------------------------
+
+        app.get('/api/user', function (req, res) {
+            /*console.log("Creating user");
+            User.create({
+                name: 'conall',
+                email: 'conall.daly95@gmail.com',
+                password: 'test1234'
+            });*/
+            res.send("defunct");
+        });
         // get all todos
         app.get('/api/workouts', function (req, res) {
             // use mongoose to get all todos in the database
@@ -36,20 +55,7 @@ module.exports = function (app) {
         // create todo and send back all todos after creation
         app.post('/api/workouts', function (req, res) {
             console.log("Saving workout");
-            //console.log(req.body.exercises);
-            //console.log(req.body.exercises[0]);
-            //console.log(req.body.exercises[0].sets);
-           /* var firstSet = req.body.exercises[0].sets[0] || null;
-            var secondSet = req.body.exercises[0].sets[1];
-            var secondExercise = req.body.exercises[1];
-            var thirdSet = req.body.exercises[2];
-            var emptySet = null/*[{setID: null, reps: null, sets: null, weight:null}]/;
-            var nullSet = {setID: null, reps: null, sets: null, weight:null};
-            var sampleSet = {setID: 1, reps: 3, sets: 4, weight: 75}
-            if(secondSet === null || secondSet === undefined){
-                secondSet = emptySet
-            }*/
-
+       
             var exc1set1, exc1Volume, exc1set2, exc1set3, exc1set4, exc1set5;
             var exc2Name, exc2Volume, exc2set1, exc2set2, exc2set3, exc2set4, exc2set5;
             var exc3Name, exc3Volume, exc3set1, exc3set2, exc3set3, exc3set4, exc3set5;

@@ -20,12 +20,18 @@
             <div data-ng-repeat="exercise in exercises">
                 <fieldset >
                     <input type="text" ng-model="exercise.name" name="" placeholder="Enter exercise name">
-                    <div style="margin-left: 40px" data-ng-repeat="set in exercise.sets">
-                        <input type="number" ng-model="set.weight" name="" placeholder="Enter weight">
-                        <input type="number" ng-model="set.reps" name="" placeholder="Enter reps">
-                        <input type="number" ng-model="set.sets" name="" placeholder="Enter sets">
-                         <button class="addfields btn btn-default btn-sm" ng-show="$last" ng-click="addNewSet(exercise.exerciseID)">+</button>
-                        <button class="addfields btn btn-default btn-sm" ng-show="$last" ng-click="removeSet(exercise.exerciseID, set.setID)">-</button>
+                    <div style="margin-left: 40px" data-ng-repeat="set in exercise.sets" class="row">
+                        <div class="col-sm-8 col-md-10 input-group">
+                            <input type="number" ng-model="set.weight" placeholder="Enter weight">
+                            <input type="number" ng-model="set.reps" placeholder="Enter reps">
+                            <input type="number" ng-model="set.sets" placeholder="Enter sets">
+                            <input type="text" ng-model="set.rest" size="12" placeholder="Enter rest">
+                            <input type="number" ng-model="set.RPE" size="12" placeholder="Enter RPE">
+                        </div>
+                        <div class="col-sm-4 col-md-2">
+                            <button class="addfields btn btn-default btn-sm" ng-show="$last" ng-click="addNewSet(exercise.exerciseID)">+</button>
+                            <button class="addfields btn btn-default btn-sm" ng-show="$last" ng-click="removeSet(exercise.exerciseID, set.setID)">-</button>
+                        </div>
                     </div>
                     <!-- <div ng-if="exercises[exercise.exerciseID].sets.length< 1"><p></p></div>
                     <br>

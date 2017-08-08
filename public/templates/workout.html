@@ -2,7 +2,7 @@
 
 	<div class="text-center" >
         <span ng-repeat="workout in workouts | limitTo : -15"> 
-        	<a ng-click="selectWorkout(workout._id)">{{ workout.name }} &nbsp &nbsp</a>
+        	<a ng-click="selectWorkout(workout)">{{ workout.name }} &nbsp &nbsp</a>
 		</span>
 	</div>
 	<br><br>

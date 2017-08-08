@@ -30,8 +30,15 @@ var exercises = new mongoose.Schema({
   exercise5: exercise
 })
 
+var user = new mongoose.Schema({
+  name: String,
+  email: String,
+  password: String
+})
+
 
 module.exports = mongoose.model('Workout', {
+    userID: String,
     name: String,
     text: {
         type: String,

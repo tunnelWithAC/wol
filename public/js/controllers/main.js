@@ -50,7 +50,9 @@ app.controller('mainController', ['$scope','$http','Workouts', function($scope, 
     };
 
     $scope.removeSet = function(excID, setID) {
-        $scope.exercises[excID].sets.pop();
+        if($scope.exercises[excID].sets.length > 1){
+            $scope.exercises[excID].sets.pop();    
+        }
     };
 
     $scope.createWorkout = function() {
