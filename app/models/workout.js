@@ -46,6 +46,7 @@ module.exports = mongoose.model('Workout', {
     },
     date: { type: Date, default: Date.now },
     exercises: exercises,
+		accessoryWork: String,
     /*exercise1: exercise,
     exercise2: exercise,
     exercise3: exercise,

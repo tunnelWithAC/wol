@@ -1,32 +1,33 @@
 <div ng-controller="viewController">
 
 	<div class="text-center" >
-        <span ng-repeat="workout in workouts | limitTo : -15"> 
-        	<a ng-click="selectWorkout(workout)">{{ workout.name }} &nbsp &nbsp</a>
+		<span ng-repeat="workout in workouts | limitTo : -5">
+			<a ng-click="selectWorkout(workout)">{{ workout.name }} </a>
+			<small>{{workout.date | date : "MMMM dd"}}</small>&nbsp
 		</span>
 	</div>
 	<br><br>
 	<div class="row">
 		<div class="col-md-2">
-		
+
 		</div>
 		<div class="col-md-4">
 			<h2>{{currentWorkout.name}}</h2>
 		</div>
 		<div class="col-md-2">
-			&nbsp&nbsp<h4>{{currentWorkout.date | date}}</h4>	
+			&nbsp&nbsp<h4>{{currentWorkout.date | date}}</h4>
 		</div>
 		<div class="col-md-4">
-		
+
 		</div>
 	</div>
 	<hr>
 	<div class="row" ng-if="currentWorkout != null">
 		<div class="col-md-2">
-		
+
 		</div>
 		<div class="col-md-8">
-			
+
 			<div class="col-md-3">
 				<b>Name</b>
 			</div>
@@ -34,49 +35,65 @@
 				<b>Weight x Sets x Reps</b>
 			</div>
 			<div class="col-md-3">
-			
+
 			</div>
-			
+
 			<div class="col-md-3">
 				<b>Exercise Volume</b>
 			</div>
 		</div>
-		
+
 		<div class="col-md-2">
-		
+
 		</div>
-		
+
 	</div>
-	<div ng-repeat="exercise in currentWorkout.exercises"  class="row" style="padding-bottom: 5px;/*border-bottom: 1px solid gray;*/">
-		
+	<div ng-repeat="exercise in currentWorkout.exercises" ng-if="exercise.name != null"  class="row" style="padding-bottom: 5px;/*border-bottom: 1px solid gray;*/">
 		<div class="col-md-2">
-			
+
 		</div>
 
 		<div class="col-md-2">
-			{{exercise.name}}
+			<a ng-click="graphVolume(exercise.name)">{{exercise.name}}</a>
 		</div>
 
 		<div class="col-md-4">
-			
+
 			<div ng-if="set.weight != null && set.reps != null " ng-repeat="set in exercise.sets">
-					{{set.weight}} x {{set.reps}} x {{set.sets}}
+				{{set.weight}} x {{set.reps}} x {{set.sets}}
 			</div>
-		</div>	
+		</div>
 		<div class="col-md-2">
 			<span ng-if="exercise.exerciseVolume != null">{{exercise.exerciseVolume}}kg</span>
 		</div>
 		<div class="col-md-2">
-			
+
 		</div>
 		<br>
-
-
-
 	</div>
-	<br><br>
+	<br>
+	<div class="row" style="padding-bottom: 5px;/*border-bottom: 1px solid gray;*/" ng-if="currentWorkout.accessoryWork">
+
+		<div class="col-md-2">
+
+		</div>
+
+		<div class="col-md-8">
+			<b>Accessory Work</b>
+			<div ng-bind="currentWorkout.accessoryWork" class="angular-with-newlines"></div>
+		</div>
+
+		<div class="col-md-2">
+
+		</div>
+		<br>
+	</div>
+	<div>
+		<button class="btn btn-danger btn-sm btn-del" ng-click="deleteWorkout(currentWorkout._id)">Delete</button>
+	</div>
+	<br><br><br>
 	<div>
 		{{currentWorkout}}
 	</div>
-	
+
 </div>

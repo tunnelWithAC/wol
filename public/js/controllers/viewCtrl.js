@@ -4,7 +4,6 @@ app.controller('viewController', ['$scope','$http','Workouts', function($scope, 
         //console.log(searchObject);
 	//$scope.currentWorkout = null;
 
-	
 
 
 	/*Workouts.create($scope.workoutData)
@@ -14,20 +13,18 @@ app.controller('viewController', ['$scope','$http','Workouts', function($scope, 
                     $scope.workouts = response.data;
                 });*/
 
-
+    $scope.volume = [];
 
     var id1, id2;
     id1 = "5981933790c52c4c0826d6ab"; //old
     id2 = "59847b01599881719f0ce0de"; //new
 
-    console.log(id1 < id2); 
+    console.log(id1 < id2);
 
     Workouts.get().then(function(response) {
     	$scope.count = response.data.length;
     	$scope.mostRecent = response.data[response.data.length -1];
     	$scope.currentWorkout = response.data[response.data.length -1];
-    	console.log(response.data[0].name);
-    	
     });
 
     $scope.loadNames = function(){
@@ -45,8 +42,40 @@ app.controller('viewController', ['$scope','$http','Workouts', function($scope, 
             }
         }
     };
-  
-       
+
+    $scope.graphVolume = function(exerciseName){
+      var count = 0;
+
+      for(var i=0; i<$scope.workouts.length;i++){
+        console.log($scope.workouts[i].exercises.exercise1);
+          if($scope.workouts[i].exercises.exercise1.name == exerciseName){
+            count++;
+            $scope.volume.push($scope.workouts[i].exercises.exercise1.exerciseVolume);
+            //push exercise volume
+          }
+          if($scope.workouts[i].exercises.exercise2.name == exerciseName){
+            count++;
+            $scope.volume.push($scope.workouts[i].exercises.exercise2.exerciseVolume);
+          }
+          if( $scope.workouts[i].exercises.exercise3.name == exerciseName){
+            count++;
+            $scope.volume.push($scope.workouts[i].exercises.exercise3.exerciseVolume);
+          }
+      }
+      console.log(count);
+
+      console.log($scope.volume);
+    };
+
+    $scope.deleteWorkout = function(id){
+      Workouts.delete(id)
+          .then(function(response) {
+              console.log(response.data);
+              $scope.workouts = response.data;
+              $scope.currentWorkout = response.data[response.data.length -1];
+          });
+    };
+
     $scope.selectWorkout = function(workout){
         console.log(workout);
         $scope.currentWorkout = workout;
