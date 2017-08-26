@@ -19,7 +19,7 @@ var app = angular.module('wol3', [ 'todoService', 'workoutService', 'ui.router',
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/dashboard');
 
     $stateProvider
 
@@ -31,6 +31,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('home.workout', {
             url: '/workout',
             templateUrl: 'templates/workout.html'
+        })
+        .state('home.dashboard', {
+            url: '/dashboard',
+            templateUrl: 'templates/dashboard.html'
         })
         .state('home.create', {
             url: '/create',

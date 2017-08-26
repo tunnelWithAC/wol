@@ -16,15 +16,16 @@
 
 	<!-- SPELLS -->
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script><!-- load angular -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-cookies.js"></script>
-    <script src="https://code.angularjs.org/1.6.2/angular-resource.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-cookies.js"></script>
+	<script src="https://code.angularjs.org/1.6.2/angular-resource.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.4.2/angular-ui-router.min.js"></script>
 	<script src="js/core.js"></script> <!-- load our main application -->
 	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
-	<script src="js/controllers/viewCtrl.js"></script> <!-- load up our controller -->
-    <!-- <script src="js/controllers/workoutCtrl.js"></script> load up our controller -->
+	<script src="js/controllers/viewCtrl.js"></script>
+	<script src="js/controllers/dashboardCtrl.js"></script>
+	<!-- <script src="js/controllers/workoutCtrl.js"></script> load up our controller -->
 	<script src="js/services/todos.js"></script> <!-- load our todo service -->
-    <script src="js/services/workouts.js"></script>
+	<script src="js/services/workouts.js"></script>
 
 
 </head>
@@ -33,14 +34,14 @@
 <body >
 
 	<div class="container">
-        <span style="font-size: 22px">wol<span style="color:orange; font-size:24px">3</span>
-        <span style="color:grey; font-size:20px">v2</span></span>
+		<a ui-sref="home.dashboard"><span style="color: black; font-size: 22px">wol<span style="color:orange; font-size:24px">3</span>
+			<span style="color:grey; font-size:20px">v2</span></span></a>
 
-        <hr/>
-        <div ui-view>
+			<hr/>
+			<div ui-view>
 
-        </div>
-	</div>
+			</div>
+		</div>
 
-</body>
-</html>
+	</body>
+	</html>

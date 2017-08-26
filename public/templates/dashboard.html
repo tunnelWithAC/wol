@@ -1,0 +1,9 @@
+<div ng-controller="dashboardController">
+
+<h4 class="text-center">{{today | date : "MMMM" }}</h4>
+<span ng-repeat="workout in workouts">
+  <small>{{workout.date | date : "dd"}}</small>&nbsp
+</span>
+<!-- https://drive.google.com/open?id=0BzH4eneWolYASHdzNV9BZHBwcjQ -->
+<iframe width="500" height="500" src="https://drive.google.com/file/d/0BzH4eneWolYASHdzNV9BZHBwcjQ/preview"></iframe>
+</div>
