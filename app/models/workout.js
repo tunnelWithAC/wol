@@ -36,6 +36,18 @@ var user = new mongoose.Schema({
   password: String
 })
 
+var video = new mongoose.Schema({
+  name: String,
+  url: String
+});
+
+var videos = new mongoose.Schema({
+  video1: video,
+  video2: video,
+  video3: video,
+  video4: video,
+  video5: video
+})
 
 module.exports = mongoose.model('Workout', {
     userID: String,
@@ -47,6 +59,7 @@ module.exports = mongoose.model('Workout', {
     date: { type: Date, default: Date.now },
     exercises: exercises,
 		accessoryWork: String,
+		videos: videos,
     /*exercise1: exercise,
     exercise2: exercise,
     exercise3: exercise,

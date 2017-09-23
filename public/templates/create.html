@@ -10,11 +10,36 @@
   </div>
 </div>
 
-
 <!-- Workout LIST -->
-<div class="row">
-  <div class="col-sm-12" ng-model="workoutData.exercises">
-    <button class="addfields btn btn-default btn-sm" ng-click="addNewExercise()">Add Exercise</button>&nbsp&nbsp<a ng-click="showAccessory()">Add accessory work</a>
+<div class="col-sm-12" ng-model="workoutData.exercises">
+  <div class="row">
+    <button class="addfields btn btn-default btn-sm" ng-click="addNewExercise()">Add Exercise</button>&nbsp
+    <button class="addfields btn btn-default btn-sm" data-toggle="modal" data-target="#videoUploadModal">Upload video</button><!-- <a ng-click="showAccessory()">Add accessory work</a> -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="videoUploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            <input type="text" ng-model="videoName" placeholder="Video name">
+            <input type="text" ng-model="videoUrl" placeholder="Video url">
+            <button ng-hide="videos.length>=3"class="addfields btn btn-default btn-sm" ng-click="saveVideo(videoName, videoUrl)">Save video</button>
+            <div data-ng-repeat="video in videos">
+              {{$index}}{{video.name}} : {{video.url}}
+            </div>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <br>
     <br>
     <div data-ng-repeat="exercise in exercises">
@@ -25,8 +50,8 @@
             <input type="number" ng-model="set.weight" placeholder="Enter weight">
             <input type="number" ng-model="set.reps" placeholder="Enter reps">
             <input type="number" ng-model="set.sets" placeholder="Enter sets">
-            <input type="text" ng-model="set.rest" size="12" placeholder="Enter rest">
-            <input type="number" ng-model="set.RPE" size="12" placeholder="Enter RPE">
+            <!-- <input type="text" ng-model="set.rest" size="12" placeholder="Enter rest">
+            <input type="number" ng-model="set.RPE" size="12" placeholder="Enter RPE"> -->
           </div>
           <div class="col-sm-4 col-md-2">
             <button class="addfields btn btn-default btn-sm" ng-show="$last" ng-click="addNewSet(exercise.exerciseID)">+</button>
@@ -40,14 +65,21 @@
       <br>
 
     </div>
-    <div ng-show="accessoryVisible">Accessory Work<br>
+    <div>Accessory Work<br>
       <textarea cols="70" rows="4" ng-model="workoutData.accessoryWork"></textarea>
       <br>
       <br>
     </div>
-  </div>
+    <!-- <div>
+    <input type="text" ng-model="workoutData.video1"  placeholder="Add video link">
+    <input type="text" ng-model="workoutData.video2"  placeholder="Add video link">
+    <input type="text" ng-model="workoutData.video3"  placeholder="Add video link">
+    <br><br>
+  </div> -->
 </div>
-<button type="submit" class="btn btn-primary" ng-click="createWorkout()">Save</button>
+</div>
+<button type="submit" class="btn btn-primary" ng-click="createWorkout()" ng-disabled="!workoutData.name">Save</button>
 <br>
 <br>
+
 {{workoutData}}

@@ -88,16 +88,58 @@
 		</div>
 		<br>
 	</div>
+	<div class="row" ng-if="currentWorkout.videos.video1">
+		<div class="col-md-2">
+
+		</div>
+
+		<div class="col-md-8">
+
+			<div ng-controller="modalController">
+				<button class="btn btn-primary" ng-click="showModal1 = true">Show</button>
+				<b>Videos</b><h3>{{currentVideo}}</h3>
+
+				<span ng-repeat="video in currentWorkout.videos">
+					<a ng-click="showModal1 = true">
+						{{video}}
+						<a ng-click="setVideo(video.url)">{{video.name}}</a>
+
+					</a> <!-- when clicked set a variable to videos url, then load video in modal -->
+				</span>
+				<modal visible="showModal1" on-shown="modalOneShown()" on-hide="modalOneHide()">
+					<modal-header title="Modal Titel 1"></modal-header>
+					<modal-body>
+
+						<iframe width="750" height="500" src="https://drive.google.com/file/d/0BzH4eneWolYASHdzNV9BZHBwcjQ/preview"></iframe>
+					</modal-body>
+					<!--
+					<modal-footer>
+					<button class="btn btn-primary"  ng-click="hide(1)">Save</button>
+				</modal-footer>
+			-->
+			</modal>
+
+			</div>
+		</div>
+
+		<div class="col-md-2">
+
+		</div>
+	</div>
 	<div>
 		<button class="btn btn-danger btn-sm btn-del" ng-click="deleteWorkout(currentWorkout._id)">Delete</button>
 	</div>
 	<br>
-	<!-- https://drive.google.com/open?id=0BzH4eneWolYASHdzNV9BZHBwcjQ -
-	<iframe width="500" height="500" src="https://drive.google.com/file/d/0BzH4eneWolYASHdzNV9BZHBwcjQ/preview"></iframe> ->
 
-<br><br>
+
+
+	<!-- https://drive.google.com/open?id=0BzH4eneWolYASHdzNV9BZHBwcjQ -
+	<iframe width="500" height="500" src="https://drive.google.com/file/d/0BzH4eneWolYASHdzNV9BZHBwcjQ/preview"></iframe> -->
+
+	<br><br>
 	<div>
 		{{currentWorkout}}
 	</div>
+
 
 </div>

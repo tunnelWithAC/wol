@@ -5,17 +5,48 @@ app.controller('mainController', ['$scope','$http','Workouts', function($scope, 
     $scope.accessoryVisible = false;
     $scope.exercises = [{'exerciseID':0, "sets":[{"setID":0}]}];
     $scope.sets = [];
+
+    $scope.videos = [];
+    $scope.videoName = "t";
+    $scope.videoUrl = "t";
+    $scope.currentVideo = "";
+
     $scope.workoutData.exercises = $scope.exercises;
+
+    $scope.setVideo = function(url){
+        $scope.currentVideo = url;
+        console.log("video updated");
+        console.log($scope.currentVideo);
+        console.log(url);
+    };
+
+    $scope.saveVideo = function(name, url){
+      // https://drive.google.com/open?id=0BzH4eneWolYASHdzNV9BZHBwcjQ
+      // https://drive.google.com/open?id=0BzH4eneWolYAaEtkNFRVWXMzeVE
+      // https://drive.google.com/file/d/0BzH4eneWolYASHdzNV9BZHBwcjQ/view
+      // https://drive.google.com/file/d/0BzH4eneWolYASHdzNV9BZHBwcjQ/preview
+      if(url.includes('drive.google')){
+        url = url.replace('open?id=', 'file/d/');
+        console.log('replacing tex');
+        url += '/preview';
+      }
+
+      $scope.videos.push({'name': name, 'url': url});
+      $scope.workoutData.videos = $scope.videos;
+
+
+    };
 
     $scope.showAccessory = function(){
       $scope.accessoryVisible = true;
-    }
+    };
 
     $scope.clearForm = function(){
         $scope.workoutData = {};
         $scope.exercises = [{'exerciseID':0, "sets":[{"setID":0}]}];
         $scope.sets = [];
         $scope.workoutData.exercises = $scope.exercises;
+        $scope.videos = [];
     };
 
     $scope.addNewExercise = function(){
@@ -62,7 +93,7 @@ app.controller('mainController', ['$scope','$http','Workouts', function($scope, 
     $scope.createWorkout = function() {
         $scope.calculateTotalVolume();
         //$scope.workoutData.accessoryWork = $scope.workoutData.accessoryWork.replace(/\r?\n/g, '<br />');
-        console.log($scope.workoutData.accessoryWork);
+        //console.log($scope.workoutData.accessoryWork);
         if ($scope.workoutData.name != undefined) {
             $scope.loading = true;
             Workouts.create($scope.workoutData)

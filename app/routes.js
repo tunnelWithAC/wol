@@ -66,9 +66,6 @@ app.post('/api/workouts', function (req, res) {
   var exc4Name, exc4Volume, exc4set1, exc4set2, exc4set3, exc4set4, exc4set5;
   var exc5Name, exc5Volume, exc5set1, exc5set2, exc5set3, exc5set4, exc5set5;
 
-  console.log(req.body.exercises);
-  console.log(req.body.exercises[0].sets[0].weight);
-
   if(req.body.exercises[0] !== undefined && req.body.exercises[0] !== null){
     exc1Name = req.body.exercises[0].name;
     exc1Volume = req.body.exercises[0].exerciseVolume || null;
@@ -119,10 +116,18 @@ app.post('/api/workouts', function (req, res) {
     exc5set5 = req.body.exercises[4].sets[4] || null;
   }
 
-  console.log(exc1Set1);
-  console.log(req.body.accessoryWork);
-  console.log(exc1Set1.weight);
-  console.log("e5" + exc5Name);
+  var videos = req.body;
+  var video1, video2, video3;
+
+  if(req.body.videos !== undefined && req.body.videos !== null){
+    video1 = req.body.videos[0];
+      if(req.body.videos[1] !== undefined && req.body.videos[1] !== null){
+        video2 = req.body.videos[1] || null;
+      }
+      if(req.body.videos[2] !== undefined && req.body.videos[2] !== null){
+        video3 = req.body.videos[2];
+      }
+  }
   // create a workout object, information comes from AJAX request from Angular
   Workout.create({
     userID: '598a2c2fd5937c37eb53b9cd',
@@ -130,6 +135,11 @@ app.post('/api/workouts', function (req, res) {
     //exercises: req.body.exercises,
     workoutVolume: req.body.totalVolume,
     accessoryWork: req.body.accessoryWork,
+    videos: {
+      video1: video1,
+      video2: video2,
+      video3: video3
+    },
     exercises: {
       exercise1: {
         name: exc1Name,
@@ -201,7 +211,7 @@ app.post('/api/workouts', function (req, res) {
     // get and return all the todos after you create another
     getWorkouts(res);
   });
-  //getWorkouts(res);
+  //  getWorkouts(res);
 });
 
 app.delete('/api/workout/:workout_id', function (req, res) {

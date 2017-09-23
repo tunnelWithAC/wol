@@ -14,6 +14,7 @@ app.controller('viewController', ['$scope','$http','Workouts', function($scope, 
                 });*/
 
     $scope.volume = [];
+    $scope.currentVideo = "";
 
     var id1, id2;
     id1 = "5981933790c52c4c0826d6ab"; //old
