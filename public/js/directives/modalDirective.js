@@ -2,7 +2,7 @@
 
 app.directive('modal', function(){
         return {
-            template: '<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"><div class="modal-dialog modal-sm"><div class="modal-content" ng-transclude><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="myModalLabel">Modal title</h4></div></div></div></div>',
+            template: '<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"><div class="modal-dialog modal-sm"><div class="modal-content modal-video-content" ng-transclude><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="myModalLabel">Modal title</h4></div></div></div></div>',
             restrict: 'E',
             transclude: true,
             replace:true,
@@ -54,7 +54,7 @@ app.directive('modal', function(){
 
 app.directive('modalHeader', function(){
     return {
-        template:'<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">{{title}}</h4></div>',
+        template:'<div class="modal-header modal-video-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">{{title}}</h4></div>',
         replace:true,
         restrict: 'E',
         scope: {title:'@'}
@@ -63,7 +63,7 @@ app.directive('modalHeader', function(){
 
 app.directive('modalBody', function(){
     return {
-        template:'<div class="modal-body" ng-transclude></div>',
+        template:'<div class="modal-body modal-video-body" ng-transclude></div>',
         replace:true,
         restrict: 'E',
         transclude: true
@@ -72,7 +72,7 @@ app.directive('modalBody', function(){
 
 app.directive('modalFooter', function(){
     return {
-        template:'<div class="modal-footer" ng-transclude></div>',
+        template:'<div class="modal-footer modal-video-footer" ng-transclude></div>',
         replace:true,
         restrict: 'E',
         transclude: true
@@ -85,6 +85,15 @@ app.controller('modalController', ['$scope','$http','Workouts', function($scope,
   $scope.title = "Angularjs Bootstrap Modal Directive Example";
   $scope.showModal1 = false;
   $scope.showModal2 = false;
+  $scope.value = 0;
+
+  $scope.enableModal1 = function(){
+    $scope.showModal1 = true;
+  }
+
+  $scope.setValue = function(){
+    $scope.value++;
+  }
 
   $scope.hide = function(m){
       if(m === 1){

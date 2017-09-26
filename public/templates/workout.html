@@ -94,23 +94,16 @@
 		</div>
 
 		<div class="col-md-8">
-
 			<div ng-controller="modalController">
-				<button class="btn btn-primary" ng-click="showModal1 = true">Show</button>
-				<b>Videos</b><h3>{{currentVideo}}</h3>
 
-				<span ng-repeat="video in currentWorkout.videos">
-					<a ng-click="showModal1 = true">
-						{{video}}
-						<a ng-click="setVideo(video.url)">{{video.name}}</a>
+				<span class="glyphicon glyphicon-facetime-video" ng-click="showModal1 = true"> Videos</span>
 
-					</a> <!-- when clicked set a variable to videos url, then load video in modal -->
-				</span>
 				<modal visible="showModal1" on-shown="modalOneShown()" on-hide="modalOneHide()">
-					<modal-header title="Modal Titel 1"></modal-header>
+					<modal-header title={{currentVideo}}></modal-header>
 					<modal-body>
 
-						<iframe width="750" height="500" src="https://drive.google.com/file/d/0BzH4eneWolYASHdzNV9BZHBwcjQ/preview"></iframe>
+						<span ng-repeat="video in currentWorkout.videos"><a ng-click="setVideo(video.url)">{{video.name}}</a></span>
+						<iframe width="750" height="500" ng-src="{{trustSrc(currentVideo)}}" allowfullscreen frameborder="0"></iframe>
 					</modal-body>
 					<!--
 					<modal-footer>
@@ -126,6 +119,13 @@
 
 		</div>
 	</div>
+	<!--
+	<div id="testRow">
+		<input type="text" ng-model="test">{{test}}<button class="btn" ng-click="updateTest()">click</button>
+		<p>Current video: {{currentVideo}}</p>
+			<iframe width="750" height="500" ng-src="{{trustSrc(currentVideo)}}" allowfullscreen frameborder="0"></iframe>
+
+	</div>-->
 	<div>
 		<button class="btn btn-danger btn-sm btn-del" ng-click="deleteWorkout(currentWorkout._id)">Delete</button>
 	</div>
