@@ -1,10 +1,30 @@
-app.controller('viewController', ['$scope','$http', '$filter', '$sce', 'Workouts', function($scope, $http, $filter, $sce, Workouts) {
+app.controller('logController', ['$scope','$http', '$filter', '$sce', 'Workouts', function($scope, $http, $filter, $sce, Workouts) {
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   }
+  $scope.workouts = {};
+  $scope.maxes = {
+    "squat": 150,
+    "front squat": 110,
+    "sumo deadlift": 200,
+    "conventional deadlift": 210,
+    "bench press": 80,
+    "incline press": 70,
+    "shoulder press": 57.5
+  }
+  $scope.lowerBodyExercises = ['squat', 'deadlift', 'lower'];
+  $scope.upperBodyExercises = ['incline', 'bench', 'press', 'upper'];
 
   $scope.volume = [];
-  $scope.currentVideo = "https://drive.google.com/file/d/0BzH4eneWolYASHdzNV9BZHBwcjQ/preview";
+  Workouts.get().then(function(response) {
+    $scope.count = response.data.length;
+    $scope.mostRecent = response.data[response.data.length -1];
+    $scope.baseData = $scope.mostRecent.date;
+    $scope.currentWorkout = response.data[response.data.length -1];
+    $scope.workouts = response.data;
+  });
+
+  $scope.currentVideo = 'https://drive.google.com/file/d/0BzH4eneWolYAaEtkNFRVWXMzeVE/preview';
   $scope.setVideo = function(url){
     $scope.currentVideo = url;
     console.log($scope.currentVideo);
@@ -13,19 +33,15 @@ app.controller('viewController', ['$scope','$http', '$filter', '$sce', 'Workouts
   id1 = "5981933790c52c4c0826d6ab"; //old
   id2 = "59847b01599881719f0ce0de"; //new
 
-  Workouts.get().then(function(response) {
-    $scope.count = response.data.length;
-    $scope.mostRecent = response.data[response.data.length -1];
-    $scope.currentWorkout = response.data[response.data.length -1];
-  });
 
   $scope.loadNames = function(){
-    console.log("method called f");
+    console.log("method called");
     console.log($scope.workouts.length);
     angular.forEach($scope.workouts, function(value, key) {
       console.log(key + ': ' + value);
     });
   };
+
 
   $scope.aggregateVolume = function(){
     for(var i = $scope.workouts.length-1;  i>0; i--){
@@ -35,9 +51,25 @@ app.controller('viewController', ['$scope','$http', '$filter', '$sce', 'Workouts
     }
   };
 
+  $scope.deleteWorkout = function(id){
+    Workouts.delete(id)
+    .then(function(response) {
+      console.log(response.data);
+      $scope.workouts = response.data;
+      $scope.currentWorkout = response.data[response.data.length -1];
+    });
+  };
+
+  $scope.selectWorkout = function(workout){
+    console.log(workout);
+    $scope.currentWorkout = workout;
+    if(workout.videos !== null && workout.videos !== undefined)
+      $scope.currentVideo = workout.videos.video1.url;
+  };
+
+  // collects the total exercise (exc1+exc2+exc3) volume associated with the param
   $scope.graphVolume = function(exerciseName){
     var count = 0;
-
     for(var i=0; i<$scope.workouts.length;i++){
       console.log($scope.workouts[i].exercises.exercise1);
       if($scope.workouts[i].exercises.exercise1.name == exerciseName){
@@ -55,19 +87,4 @@ app.controller('viewController', ['$scope','$http', '$filter', '$sce', 'Workouts
       }
     }
   };
-
-  $scope.deleteWorkout = function(id){
-    Workouts.delete(id)
-    .then(function(response) {
-      console.log(response.data);
-      $scope.workouts = response.data;
-      $scope.currentWorkout = response.data[response.data.length -1];
-    });
-  };
-
-  $scope.selectWorkout = function(workout){
-    console.log(workout);
-    $scope.currentWorkout = workout;
-  };
-
 }]);

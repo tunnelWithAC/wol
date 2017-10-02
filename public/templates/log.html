@@ -1,9 +1,9 @@
-<div ng-controller="viewController">
+<div ng-controller="logController">
 
 	<div class="text-center" >
-		<span ng-repeat="workout in workouts | limitTo : -5">
+		<span ng-repeat="workout in workouts  | limitTo : -25">
 			<a ng-click="selectWorkout(workout)">{{ workout.name }} </a>
-			<small>{{workout.date | date : "MMMM dd"}}</small>&nbsp
+			<small>{{workout.date | date : "dd MMMM yy"}}</small>&nbsp
 		</span>
 	</div>
 	<br><br>

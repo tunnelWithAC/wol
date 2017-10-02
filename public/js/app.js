@@ -1,25 +1,8 @@
-//var app = angular.module('myApp', ['ui.router', 'ngAnimate', 'ngSanitize', 'ui.bootstrap', 'ngCookies','ngResource']);
-
-/*
-OLD
-angular.module('todoController', [])
-
-inject the Todo service factory into our controller
-    .controller('mainController', ['$scope','$http','Todos','Workouts', function($scope, $http, Todos, Workouts) {
-
-    }
-
-CURRENT
-
- app.controller('homeCtrl',
- function ($scope, $cookies,$filter, $location,$http, loginService) {
-
-    */
 var app = angular.module('wol3', [ 'todoService', 'workoutService', 'ui.router', 'ngSanitize', 'ngCookies','ngResource']);
 
 app.config(function($stateProvider, $sceDelegateProvider, $urlRouterProvider) {
 
-  $sceDelegateProvider.resourceUrlWhitelist([
+  /*$sceDelegateProvider.resourceUrlWhitelist([
     // Allow same origin resource loads.
     'self',
     // Allow loading from our assets domain.  Notice the difference between * and **.
@@ -29,7 +12,7 @@ app.config(function($stateProvider, $sceDelegateProvider, $urlRouterProvider) {
   // The blacklist overrides the whitelist so the open redirect here is blocked.
   $sceDelegateProvider.resourceUrlBlacklist([
     'http://myapp.example.com/clickThru**'
-  ]);
+  ]);*/
 
     $urlRouterProvider.otherwise('/home/create');
 
@@ -39,9 +22,9 @@ app.config(function($stateProvider, $sceDelegateProvider, $urlRouterProvider) {
             url: '/home',
             templateUrl: 'templates/home.html'
         })
-        .state('home.workout', {
-            url: '/workout',
-            templateUrl: 'templates/workout.html'
+        .state('home.log', {
+            url: '/logs',
+            templateUrl: 'templates/log.html'
         })
         .state('home.dashboard', {
             url: '/dashboard',

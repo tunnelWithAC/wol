@@ -52,10 +52,12 @@
             <input type="number" ng-model="set.sets" placeholder="Enter sets">
             <!-- <input type="text" ng-model="set.rest" size="12" placeholder="Enter rest">
             <input type="number" ng-model="set.RPE" size="12" placeholder="Enter RPE"> -->
-          </div>
-          <div class="col-sm-4 col-md-2">
+            &nbsp
             <button class="addfields btn btn-default btn-sm" ng-show="$last" ng-click="addNewSet(exercise.exerciseID)">+</button>
             <button class="addfields btn btn-default btn-sm" ng-show="$last" ng-click="removeSet(exercise.exerciseID, set.setID)">-</button>
+          </div>
+          <div class="col-sm-4 col-md-2">
+
           </div>
         </div>
         <!-- <div ng-if="exercises[exercise.exerciseID].sets.length< 1"><p></p></div>

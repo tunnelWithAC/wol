@@ -1,7 +1,8 @@
 app.controller('mainController', ['$scope','$http','Workouts', function($scope, $http, Workouts) {
     $scope.formData = {};
     $scope.workoutData = {};
-    $scope.workoutData.exercises = [{'exerciseID':0, "sets":[{"setID":0}]}];
+    $scope.exercises = [{'exerciseID':0, "sets":[{"setID":0}]}];
+    $scope.workoutData.exercises = $scope.exercises;
     $scope.loading = true;
 
     $scope.saveVideo = function(name, url){
@@ -53,7 +54,6 @@ app.controller('mainController', ['$scope','$http','Workouts', function($scope, 
     };
 
     $scope.addNewSet = function(excID) {
-        // exercises[id].sets.push(param)
         if($scope.exercises[excID].sets.length < 5 ){
             var newItemNo = $scope.exercises[excID].sets.length;
             $scope.exercises[excID].sets.push({'setID':newItemNo});
@@ -68,8 +68,6 @@ app.controller('mainController', ['$scope','$http','Workouts', function($scope, 
 
     $scope.createWorkout = function() {
         $scope.calculateTotalVolume();
-        //$scope.workoutData.accessoryWork = $scope.workoutData.accessoryWork.replace(/\r?\n/g, '<br />');
-        //console.log($scope.workoutData.accessoryWork);
         if ($scope.workoutData.name != undefined) {
             $scope.loading = true;
             Workouts.create($scope.workoutData)
@@ -79,7 +77,6 @@ app.controller('mainController', ['$scope','$http','Workouts', function($scope, 
                     $scope.workouts = response.data;
                 });
         }
-        //$scope.clearForm();
     };
 
     Workouts.get()
@@ -88,16 +85,14 @@ app.controller('mainController', ['$scope','$http','Workouts', function($scope, 
             $scope.loading = false;
     });
 
-    // DELETE ==================================================================
-    // delete a todo after checking it
+
     $scope.deleteWorkout = function(id) {
         $scope.loading = true;
-
         Workouts.delete(id)
         // if successful creation, call our get function to get all the new todos
             .success(function(data) {
                 $scope.loading = false;
-                $scope.todos = data; // assign our new list of todos
+                $scope.workouts = response.data;
             });
     };
 }]);
