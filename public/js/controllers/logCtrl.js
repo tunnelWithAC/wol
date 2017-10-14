@@ -12,8 +12,10 @@ app.controller('logController', ['$scope','$http', '$filter', '$sce', 'Workouts'
     "incline press": 70,
     "shoulder press": 57.5
   }
-  $scope.lowerBodyExercises = ['squat', 'deadlift', 'lower'];
-  $scope.upperBodyExercises = ['incline', 'bench', 'press', 'upper'];
+  $scope.lowerBodyExerciseNames = ['squat', 'deadlift', 'lower'];
+  $scope.upperBodyExerciseNames = ['incline',/*'incline press',*/ 'bench', 'press', 'upper body'];
+  $scope.lowerBodyExercises = [];
+  $scope.upperBodyExercises = [];
 
   $scope.volume = [];
   Workouts.get().then(function(response) {
@@ -22,6 +24,7 @@ app.controller('logController', ['$scope','$http', '$filter', '$sce', 'Workouts'
     $scope.baseData = $scope.mostRecent.date;
     $scope.currentWorkout = response.data[response.data.length -1];
     $scope.workouts = response.data;
+    $scope.classExercises($scope.workouts);
   });
 
   $scope.currentVideo = 'https://drive.google.com/file/d/0BzH4eneWolYAaEtkNFRVWXMzeVE/preview';
@@ -33,6 +36,24 @@ app.controller('logController', ['$scope','$http', '$filter', '$sce', 'Workouts'
   id1 = "5981933790c52c4c0826d6ab"; //old
   id2 = "59847b01599881719f0ce0de"; //new
 
+  $scope.classExercises = function(workouts){
+
+    for(var i=0; i<workouts.length; i++){
+      for(var j=0; j<$scope.lowerBodyExerciseNames.length; j++){
+        if($scope.lowerBodyExerciseNames[j].includes(workouts[i].name.toLowerCase()))
+            $scope.lowerBodyExercises.push(workouts[i]);
+      }
+      for(var j=0; j<$scope.upperBodyExerciseNames.length; j++){
+        if($scope.upperBodyExerciseNames[j].includes(workouts[i].name.toLowerCase()) )
+        // don't add if already exit
+            $scope.upperBodyExercises.push(workouts[i]);
+            //j = $scope.upperBodyExerciseNames.length;
+      }
+    }
+    console.log($scope.lowerBodyExercises);
+    console.log($scope.upperBodyExercises);
+
+  };
 
   $scope.loadNames = function(){
     console.log("method called");
@@ -63,7 +84,7 @@ app.controller('logController', ['$scope','$http', '$filter', '$sce', 'Workouts'
   $scope.selectWorkout = function(workout){
     console.log(workout);
     $scope.currentWorkout = workout;
-    if(workout.videos !== null && workout.videos !== undefined)
+    if(workout.videos.video1 !== null && workout.videos.video1 !== undefined)
       $scope.currentVideo = workout.videos.video1.url;
   };
 
